@@ -4,30 +4,23 @@
 <h3>Hardware Monitor</h3>
 
 <div class="row">
-	<div class="col-md-3">
+	<div class="col-md-4">
 		<div class="flex-column">
-			<div class="m-3">
 			<GaugeCard Data=@CPULoad Title="CPU LOAD"></GaugeCard>
-            </div>
-			<div class="m-3">
 			<GaugeCard Data=@GPULoad Title="GPU LOAD"></GaugeCard>
-            </div>
-			<div class="m-3">
 			<GaugeCard Data=@RAMLoad Title="RAM LOAD"></GaugeCard>
-			</div>
 		</div>
 	</div>
-	<div class="col-md-3">
+	<div class="col-md-4">
 		<div class="flex-column">
 			<DataCard Title= "CPU Name" Unit=@CPUName></DataCard>
 			<DataCard Title= "GPU Name" Unit=@GPUName></DataCard>
 		</div>
 	</div>
-		<div class="col-md-3">
+		<div class="col-md-4">
 		<div class="flex-column">
-			<div class="m-3">
-			<DataCard Title= "GPU Temperature" Value=@Temp Unit="C"></DataCard>
-			</div>
+			<DataCard Title= "GPU Temperature" Value=@TempGPU Unit="C"></DataCard>
+			<DataCard Title= "CPU Temperature" Value=@TempCPU Unit="C"></DataCard>
 		</div>
 	</div>
 </div>
@@ -42,7 +35,9 @@
 	private double GPULoad { get; set; }
 	private double RAMLoad { get; set; }
 
-	private double? Temp  { get; set; }
+	private double? TempGPU  { get; set; }
+	private double? TempCPU { get; set; }
+    
 	private string? CPUName { get; set; }
 	private string? GPUName { get; set; }
 
@@ -64,7 +59,7 @@
 					CPUName = info.ThisPC.CpuCompleteName != null ? info.ThisPC.CpuCompleteName : "No brand" ;
 					GPUName = info.ThisPC.GpuCompleteName != null ? info.ThisPC.GpuCompleteName : "No brand" ;
 
-					Temp = info.ThisPC.GPUTemperature != null ? info.ThisPC.GPUTemperature.First() : 0 ;
+					TempGPU = info.ThisPC.GPUTemperature != null ? info.ThisPC.GPUTemperature.First() : 0 ;
 					this.InvokeAsync(StateHasChanged);
 				};
 	}
