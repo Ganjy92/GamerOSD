@@ -31,15 +31,15 @@
 
 @code {
 
-	private double CPULoad { get; set; }
-	private double GPULoad { get; set; }
-	private double RAMLoad { get; set; }
+	private double CPULoad { get; set; } = 0;
+	private double GPULoad { get; set; } = 0;
+	private double RAMLoad { get; set; } = 0;
 
-	private double? TempGPU  { get; set; }
-	private double? TempCPU { get; set; }
-    
-	private string? CPUName { get; set; }
-	private string? GPUName { get; set; }
+	private double? TempGPU  { get; set; } = 0; 
+	private double? TempCPU { get; set; } = 0;
+
+	private string? CPUName { get; set; } = "No data";
+	private string? GPUName { get; set; } = "No data";
 
 
 	protected override void OnInitialized()
