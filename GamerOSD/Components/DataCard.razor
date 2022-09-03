@@ -1,0 +1,20 @@
+﻿
+<div>		 
+		<RadzenCard class="m-3">
+				<h5 class="card-title">@Title</h5>
+
+				<div class="card-body">
+				<p> @Value @Unit</p>
+				</div>
+		</RadzenCard>
+</div>
+
+@code {
+
+	[Parameter]
+	public string? Title { get; set; }
+	[Parameter]
+	public	double? Value { get; set; }
+	[Parameter]
+	public string? Unit	{ get; set; }
+}

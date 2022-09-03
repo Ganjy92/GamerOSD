@@ -1,0 +1,24 @@
+﻿
+<div>
+<RadzenCard>
+    <h1 class="text-body">@Title</h1>
+            <RadzenArcGauge Style="width: 100%; height: 150px;">
+                <RadzenArcGaugeScale Min="0" Max="100" Radius="1.5" TickPosition=GaugeTickPosition.None Y="0.9" Margin="0">
+                    <RadzenArcGaugeScaleValue Fill="LimeGreen" Value=@Data FormatString="00.0" ShowValue=true>
+                        <Template Context="pointer">
+                            <h4>
+                                @Data <sup>%</sup>
+                            </h4>
+                        </Template>
+                    </RadzenArcGaugeScaleValue>
+                </RadzenArcGaugeScale>
+            </RadzenArcGauge>
+		</RadzenCard>
+</div>
+@code {
+    
+    [Parameter]
+    public string Title { get; set; }
+    [Parameter]
+    public double Data { get; set; }
+}
