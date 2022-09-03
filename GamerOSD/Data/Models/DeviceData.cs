@@ -26,7 +26,8 @@
 		public float? CPUCoreClock;
 		public List<float?> CPUCorePercentLoad;
         public float? TotalCpuLoad = 0;
-        
+        public float? CpuPackageTemperature;
+
         public string? CpuCompleteName = null;
 
         //GPU

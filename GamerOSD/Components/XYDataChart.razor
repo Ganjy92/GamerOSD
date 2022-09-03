@@ -1,0 +1,43 @@
+﻿
+<h2>@ChartTitle</h2>
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12 my-5">
+            <RadzenChart>
+                <RadzenLineSeries Smooth="true" Data="@_ChartData" CategoryProperty="X" Title=@YAxisTitle LineType="LineType.Solid" ValueProperty="Y">
+                    <RadzenMarkers MarkerType="MarkerType.Square" />
+                    <RadzenSeriesDataLabels Visible="false" />
+                </RadzenLineSeries>
+
+                <RadzenCategoryAxis Padding="20">
+                        <RadzenAxisTitle Text="@XAxisTitle" />
+                </RadzenCategoryAxis>
+
+                <RadzenValueAxis>
+                    <RadzenGridLines Visible="true" />
+                    <RadzenAxisTitle Text="@YAxisTitle" />
+                </RadzenValueAxis>
+
+            </RadzenChart>
+        </div>
+    </div>
+</div>
+
+@code {
+
+
+    public struct ChartData
+    {
+        public double X { get; set; }
+        public double Y { get; set; }
+    }
+
+    [Parameter]
+    public List<ChartData> _ChartData { get; set; } = new List<ChartData>();
+    [Parameter]
+    public string XAxisTitle { get; set; } = "";
+    [Parameter]
+    public string YAxisTitle { get; set; } = "";
+    [Parameter]
+    public string ChartTitle { get; set; } = "";
+}
