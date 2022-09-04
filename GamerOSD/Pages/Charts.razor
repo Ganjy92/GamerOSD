@@ -1,0 +1,46 @@
+﻿@page "/charts"
+@inject IDeviceDataGrabber HardwareData
+
+
+
+<RadzenCard>
+    <div class="row">
+        <div class="col-md-4">
+            <XYDataChart ChartTitle="Gpu Load" XAxisTitle="Samples" YAxisTitle="Load" _ChartData=@GpuLoadChart ></XYDataChart>
+          </div>
+    </div>
+</RadzenCard>
+
+
+
+
+@code {
+
+    private uint maxSamples = 2048;
+    private static uint sampleCounter = 0;
+    private static List<XYDataChart.ChartData> GpuLoadChart = new();
+
+    protected override void OnInitialized()
+    {
+        HardwareData.NewDataCollected += (sender, e) =>
+            {
+                if (sender == null) return;
+                GenericDeviceDataGrabber? info = (GenericDeviceDataGrabber)sender;
+                if (info == null) return;
+
+                if (sampleCounter >= maxSamples)
+                {
+                    sampleCounter = 0;
+                    GpuLoadChart.Clear();
+                }
+
+
+                GpuLoadChart.Add(new XYDataChart.ChartData() { X = sampleCounter, Y = (info.ThisPC.GPULoad.First().HasValue? info.ThisPC.GPULoad.First().Value : 0)});
+                
+                sampleCounter++;
+
+                this.InvokeAsync(StateHasChanged);
+                
+            };
+    }
+}

@@ -9,7 +9,6 @@
 			<GaugeCard Data=@CPULoad Title="CPU LOAD"></GaugeCard>
 			<GaugeCard Data=@GPULoad Title="GPU LOAD"></GaugeCard>
 			<GaugeCard Data=@RAMLoad Title="RAM LOAD"></GaugeCard>
-            <XYDataChart _ChartData="@GpuLoadChart" XAxisTitle="Samples" YAxisTitle="Load" ChartTitle="GPU load chart" ></XYDataChart>
 		</div>
 	</div>
 	<div class="col-md-4">
@@ -32,9 +31,7 @@
 
 @code {
 
-	private List<XYDataChart.ChartData> GpuLoadChart = new();
-	private uint maxSamples = 2048;
-	private uint sampleCounter = 0;
+
     
 	private double CPULoad { get; set; } = 0;
 	private double GPULoad { get; set; } = 0;
@@ -63,14 +60,8 @@
 					CPUName = info.ThisPC.CpuCompleteName != null ? info.ThisPC.CpuCompleteName : "No brand" ;
 					GPUName = info.ThisPC.GpuCompleteName != null ? info.ThisPC.GpuCompleteName : "No brand" ;
 
-					if(sampleCounter >= maxSamples)
-					{
-						sampleCounter = 0;
-						GpuLoadChart.Clear();
-					}
-					sampleCounter++;
-					GpuLoadChart.Add(new XYDataChart.ChartData() { X = sampleCounter, Y = GPULoad });
 					TempGPU = info.ThisPC.GPUTemperature != null ? info.ThisPC.GPUTemperature.First() : 0 ;
+                    
 					this.InvokeAsync(StateHasChanged);
 
 				};
