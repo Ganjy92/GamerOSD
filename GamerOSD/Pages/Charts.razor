@@ -6,7 +6,7 @@
 <RadzenCard>
     <div class="row">
         <div class="col-md-4">
-            <XYDataChart ChartTitle="Gpu Load" XAxisTitle="Samples" YAxisTitle="Load" _ChartData=@GpuLoadChart ></XYDataChart>
+            <XYDataChart ChartTitle="Gpu Load" XAxisTitle="Samples" YAxisTitle="GPU-Load" _ChartData=@GpuLoadChart XDataFormatter="@ReturnDateTime" ></XYDataChart>
           </div>
     </div>
 </RadzenCard>
@@ -20,6 +20,11 @@
     private static uint sampleCounter = 0;
     private static List<XYDataChart.ChartData> GpuLoadChart = new();
 
+    private string ReturnDateTime(object seconds){
+        
+        return DateTime.Now.ToString("hh:mm:ss");
+    }
+    
     protected override void OnInitialized()
     {
         HardwareData.NewDataCollected += (sender, e) =>

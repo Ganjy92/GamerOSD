@@ -9,11 +9,11 @@
                     <RadzenSeriesDataLabels Visible="false" />
                 </RadzenLineSeries>
 
-                <RadzenCategoryAxis Padding="20">
+                <RadzenCategoryAxis Padding="20" Formatter="@XDataFormatter">
                         <RadzenAxisTitle Text="@XAxisTitle" />
                 </RadzenCategoryAxis>
 
-                <RadzenValueAxis>
+                <RadzenValueAxis >
                     <RadzenGridLines Visible="true" />
                     <RadzenAxisTitle Text="@YAxisTitle" />
                 </RadzenValueAxis>
@@ -26,12 +26,8 @@
 @code {
 
 
-    public struct ChartData
-    {
-        public double X { get; set; }
-        public double Y { get; set; }
-    }
-
+    [Parameter]
+    public Func<object, string> XDataFormatter { get; set; } = (obj) => (obj != null)? obj.ToString() : "";
     [Parameter]
     public List<ChartData> _ChartData { get; set; } = new List<ChartData>();
     [Parameter]
@@ -40,4 +36,10 @@
     public string YAxisTitle { get; set; } = "";
     [Parameter]
     public string ChartTitle { get; set; } = "";
+
+    public struct ChartData
+    {
+        public double X { get; set; }
+        public double Y { get; set; }
+    }
 }
