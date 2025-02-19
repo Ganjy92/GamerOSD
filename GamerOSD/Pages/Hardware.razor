@@ -37,11 +37,11 @@
 	private double GPULoad { get; set; } = 0;
 	private double RAMLoad { get; set; } = 0;
 
-	private double? TempGPU  { get; set; } = 0; 
-	private double? TempCPU { get; set; } = 0;
+	private double TempGPU  { get; set; } = 0; 
+	private double TempCPU { get; set; } = 0;
 
-	private string? CPUName { get; set; } = "No data";
-	private string? GPUName { get; set; } = "No data";
+	private string CPUName { get; set; } = "No data";
+	private string GPUName { get; set; } = "No data";
 
 	protected override void OnInitialized()
 	{
@@ -53,14 +53,14 @@
 					GenericDeviceDataGrabber? info = (GenericDeviceDataGrabber)sender;
 					if(info == null) return;
 
-					CPULoad = info.ThisPC.TotalCpuLoad != null? (double)info.ThisPC.TotalCpuLoad : CPULoad;
-					GPULoad = info.ThisPC.GPULoad.First() != null? (double)info.ThisPC.GPULoad.First() : GPULoad;
-					RAMLoad = info.ThisPC.RAMLoad.First() != null ?(double)info.ThisPC.RAMLoad.First() : RAMLoad;
+					CPULoad = info.ThisPC.TotalCpuLoad ?? CPULoad;
+					GPULoad = info.ThisPC.GPULoad.Where(data => data != 0)?.Cast<double>()?.FirstOrDefault() ?? 0;
+					RAMLoad = info.ThisPC.RAMLoad.Where(data => data != 0)?.Cast<double>()?.FirstOrDefault() ?? 0;
 
-					CPUName = info.ThisPC.CpuCompleteName != null ? info.ThisPC.CpuCompleteName : "No brand" ;
-					GPUName = info.ThisPC.GpuCompleteName != null ? info.ThisPC.GpuCompleteName : "No brand" ;
+					CPUName = info.ThisPC.CpuCompleteName ?? "No brand" ;
+					GPUName = info.ThisPC.GpuCompleteName ?? "No brand" ;
 
-					TempGPU = info.ThisPC.GPUTemperature != null ? info.ThisPC.GPUTemperature.First() : 0 ;
+					TempGPU = info.ThisPC.GPUTemperature.FirstOrDefault() ??  default;
                     
 					this.InvokeAsync(StateHasChanged);
 

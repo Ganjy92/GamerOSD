@@ -9,14 +9,6 @@
 			CPUCoreClock = 0f;
 			CPUCorePercentLoad = new List<float?>();
             
-			GPUClock = new List<float?>();
-            GPULoad = new List<float?>();
-            GPUTemperature = new List<float?>();
-            
-            RAMTemperature = new List<float?>();
-            RAMLoad = new List<float?>();
-            RAMClock = new List<float?>();
-            
             TotalCpuLoad = 0;
 
         }
@@ -31,16 +23,16 @@
         public string? CpuCompleteName = null;
 
         //GPU
-        public List<float?> GPUTemperature;
-        public List<float?> GPUClock;
-        public List<float?> GPULoad;
+        public List<double?> GPUTemperature = new List<double?>();
+        public List<double?> GPUClock = new List<double?>();
+        public List<double?> GPULoad = new List<double?>();
         
         public string? GpuCompleteName = null;
 
         //RAM
-        public List<float?> RAMTemperature;
-        public List<float?> RAMClock;
-        public List<float?> RAMLoad;
+        public List<double?> RAMTemperature = new List<double?>();
+        public List<double?> RAMClock = new List<double?>();
+        public List<double?> RAMLoad = new List<double?>();
 
         public void Clear()
         {
