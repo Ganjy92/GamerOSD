@@ -6,8 +6,8 @@
 <RadzenCard>
     <div class="row">
         <div class="col-md-4">
-            <XYDataChart ChartTitle="Gpu Load" XAxisTitle="Samples" YAxisTitle="GPU-Load" _ChartData=@GpuLoadChart XDataFormatter="@ReturnDateTime" ></XYDataChart>
-          </div>
+            <XYDataChart ChartTitle="Gpu Load" XAxisTitle="Samples" YAxisTitle="GPU-Load" XDataFormatter="@DataFormatter"  _ChartData=@GpuLoadChart  ></XYDataChart>
+        </div>
     </div>
 </RadzenCard>
 
@@ -16,14 +16,12 @@
 
 @code {
 
-    private uint maxSamples = 2048;
-    private static uint sampleCounter = 0;
     private static List<XYDataChart.ChartData> GpuLoadChart = new();
+    private DateTime _startedAt = DateTime.Now;
 
-    private string ReturnDateTime(object seconds){
-        
-        return DateTime.Now.ToString("hh:mm:ss");
-    }
+    private string DataFormatter(object timestamp)
+     => ((DateTime)timestamp).ToString("hh mm ss");
+
     
     protected override void OnInitialized()
     {
@@ -33,17 +31,8 @@
                 GenericDeviceDataGrabber? info = (GenericDeviceDataGrabber)sender;
                 if (info == null) return;
 
-                if (sampleCounter >= maxSamples)
-                {
-                    sampleCounter = 0;
-                    GpuLoadChart.Clear();
-                }
-
-
-                GpuLoadChart.Add(new XYDataChart.ChartData() { X = sampleCounter, Y = (info.ThisPC.GPULoad.First().HasValue? info.ThisPC.GPULoad.First().Value : 0)});
+                GpuLoadChart.Add(new XYDataChart.ChartData() { X = DateTime.Now, Y = (info.ThisPC.GPULoad.FirstOrDefault() ?? 0)});
                 
-                sampleCounter++;
-
                 this.InvokeAsync(StateHasChanged);
                 
             };

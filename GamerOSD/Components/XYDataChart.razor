@@ -27,7 +27,7 @@
 
 
     [Parameter]
-    public Func<object, string> XDataFormatter { get; set; } = (obj) => (obj != null)? obj.ToString() : "";
+    public Func<object, string> XDataFormatter { get; set; } = (obj) => obj.ToString() ?? string.Empty;
     [Parameter]
     public List<ChartData> _ChartData { get; set; } = new List<ChartData>();
     [Parameter]
@@ -39,7 +39,7 @@
 
     public struct ChartData
     {
-        public double X { get; set; }
+        public DateTime X { get; set; }
         public double Y { get; set; }
     }
 }
